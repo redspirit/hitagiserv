@@ -1,0 +1,24 @@
+{
+	"serverName": "Hitagi chat server",
+	"socketPort": 8080,
+	"serverHost": "localhost",
+	"mongoServer": "localhost",
+	"mongoPort": 27017,
+	"mongoBaseName": "chat2",
+	"serverDir": "hitagiserver_2",
+	"pingTimeout": 60,
+	
+	
+	"messagePrivateMaxLength": 2000,
+	"messageRoomMaxLength": 2000,
+	"imageMaxWidth": 500,
+	"imagesMaxHeight": 500,
+	"nickTimeout": 604800,
+
+	"maxNickLength": 20,
+	"dateFormat": "d.m.Y",
+	"timeFormat": "H:i",
+	
+	"busyNames": "test|anonim|anonimous|anonimoys|adnimka|tester|god|sex|hell|ass|noavatar"
+	
+}
