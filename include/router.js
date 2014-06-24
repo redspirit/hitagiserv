@@ -10,7 +10,7 @@ var tools = require('./tools.js');
 var auth = require('./auth.js');
 
 var ways = {
-	'pong': function(data, s){ s.pinged = false; },
+	'pong': function(data, s){ s.pinged = false; },     // обработка пинга
 	'register': auth.register
 }
 

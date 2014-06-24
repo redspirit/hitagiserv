@@ -153,7 +153,7 @@ var UserSchema = new Schema({
         default: 1
     },
     profile: {
-        type: Number
+        type: Schema.Types.Mixed
     }
 });
 

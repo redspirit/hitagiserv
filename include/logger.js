@@ -9,6 +9,8 @@ var moment = require('moment');
 
 console.logf = function(message){
     var msg = moment().format('MMMM Do YYYY, h:mm:ss') + ': ' + message + "\r\n";
-    fs.appendFile(global.appPath + config.logFile, msg);
+    if (config.logEnabled) {
+        fs.appendFile(global.appPath + config.logFile, msg);
+    }
     console.log(msg);
 }

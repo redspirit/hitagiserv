@@ -6,16 +6,17 @@
 	Website: http://redspirit.ru/
 */
 
-var WebSocketServer = require('ws').Server;
-var tools = require('./tools.js');
 var router = require('./router.js');
+var config = require('./../config.json');
 
-exports.start = function(){
+var WebSocketServer = require('ws').Server;
+var io;
+
+exports.start = function(host, port){
+
+    console.logf('Start started on port ' + port);
 		
-	tools.fileLog('Server started');	
-		
-	global.io = new WebSocketServer({port: config.socketPort, host: config.serverHost});
-	io.sks = {}; // массив с сокетами всех клиентов	
+	io = new WebSocketServer({port: port, host: host});
 
 	io.on('connection', function(socket){
 		onConnection(socket);
@@ -29,20 +30,22 @@ exports.start = function(){
 		for(var i in io.clients){
 			var sock = io.clients[i];
 			if(sock.pinged){
-				tools.fileLog('Lost client: ' + sock.client_ip);
+				console.logf('Lost client: ' + sock.client_ip);
 				sock.close();
 			} else {
 				sock.json_send({type:'ping'});
-				sock.pinged = true;	
-			}			
+				sock.pinged = true;
+			}
 		}
-	}, config.pingTimeout*1000);
+	}, config.pingTimeout * 1000);
 
 
 	
 }
 
-
+/*
+    Подключение нового клиента
+ */
 function onConnection(socket){
 
 	socket.id = tools.randomHash(16);
@@ -52,13 +55,24 @@ function onConnection(socket){
 	socket.pinged = false;
 	socket.rooms = [];
 	socket.json_send = function(m){
-		if(this) this.send(JSON.stringify(m));
+		if(m) socket.send(JSON.stringify(m));
 	};
 	
-	io.sks[socket.id] = socket;
-	
+	socket.room_join = function(){
+
+    }
+	socket.room_leave = function(){
+
+    }
+
+
+
 }
 
+
+/*
+ Сообщение от клиента
+ */
 function onMessage(data){
 
 	var jdata;
@@ -67,15 +81,17 @@ function onMessage(data){
 		jdata = JSON.parse(data);
 	} catch(e) {
 		jdata = false;
-		tools.fileLog('Bad JSON data');
+		console.logf('Bad JSON data');
 	}
 	
 	if(jdata) router.rout(jdata, this);
 	
 }
 
+/*
+ Клиент отключается
+ */
 function onClose(){
-	
-	delete io.sks[this.id];
+
 	
 }

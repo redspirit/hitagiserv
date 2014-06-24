@@ -25,6 +25,8 @@
 
     "defaultColor": "000",
 
+
+    "logEnabled": 1,
     "filesPath": "/var/www/",
     "logFile": "/logs/console.log",
 
