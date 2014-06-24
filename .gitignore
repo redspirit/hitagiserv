@@ -4,6 +4,7 @@ ehthumbs.db
 
 .idea
 node_modules
+logs/
 
 # Folder config file
 Desktop.ini

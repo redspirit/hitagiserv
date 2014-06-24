@@ -10,9 +10,6 @@ global.appPath = __dirname;
 require('./include/logger.js');
 
 var config = require('./config.json');
-var data = require('./include/datamodel.js');
-var WebSocketServer = require('ws').Server;
-
 var server = require('./include/server.js');
 
 

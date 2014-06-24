@@ -1,5 +1,9 @@
-/**
- * Created by Red Spirit on 24.06.14.
+/*
+    Datamodel.js - схемы БД и дополнительные подезные методы
+
+    Date: 24.06.2014
+    Author: Tayanchin Alexey
+    Website: http://redspirit.ru/
  */
 
 var crypto = require('crypto');
