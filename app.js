@@ -31,9 +31,12 @@ connection.start();
 console.log('Start: '+config.serverName);
 */
 
-
+global.appPath = __dirname;
 var config = require('./config.json');
+//var data = require('./include/datamodel.js');
+require('./include/logger.js');
 var WebSocketServer = require('ws').Server;
+
 
 var io = new WebSocketServer({port: config.server.port, host: config.server.host});
 
@@ -67,4 +70,6 @@ function onClose(){
 
 }
 
-console.log('Start: '+config.serverName);
+
+
+console.logf('Start '+config.serverName);

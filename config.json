@@ -26,6 +26,7 @@
     "defaultColor": "000",
 
     "filesPath": "/var/www/",
+    "logFile": "/logs/console.log",
 
 	"busyNames": "test|anonim|anonimous|anonimoys|adnimka|tester|god|sex|hell|ass|noavatar"
 	
