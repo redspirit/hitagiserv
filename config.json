@@ -1,13 +1,17 @@
 {
+    "mongo": {
+        "server": "localhost",
+        "port": 27017,
+        "base": "newchat"
+    },
+    "server": {
+        "host": "localhost",
+        "port": 8080
+    },
+
 	"serverName": "Hitagi chat server",
-	"socketPort": 8080,
-	"serverHost": "localhost",
-	"mongoServer": "localhost",
-	"mongoPort": 27017,
-	"mongoBaseName": "chat2",
-	"serverDir": "hitagiserver_2",
+
 	"pingTimeout": 60,
-	
 	
 	"messagePrivateMaxLength": 2000,
 	"messageRoomMaxLength": 2000,
@@ -18,7 +22,11 @@
 	"maxNickLength": 20,
 	"dateFormat": "d.m.Y",
 	"timeFormat": "H:i",
-	
+
+    "defaultColor": "000",
+
+    "filesPath": "/var/www/",
+
 	"busyNames": "test|anonim|anonimous|anonimoys|adnimka|tester|god|sex|hell|ass|noavatar"
 	
 }

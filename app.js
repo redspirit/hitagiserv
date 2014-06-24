@@ -6,12 +6,10 @@
 	Website: http://redspirit.ru/
 */
 
-require.paths = ['/root/.node_modules'];
-
 
 /*
 var mongo = require('mongoskin');
-var connection = require('./include/connection.js');
+var connection = require('./include/server.js');
 
 global.config = require('./config.json');
 
@@ -37,7 +35,7 @@ console.log('Start: '+config.serverName);
 var config = require('./config.json');
 var WebSocketServer = require('ws').Server;
 
-var io = new WebSocketServer({port: config.socketPort, host: config.serverHost});
+var io = new WebSocketServer({port: config.server.port, host: config.server.host});
 
 io.on('connection', function(socket){
 	onConnection(socket);
