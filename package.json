@@ -1,0 +1,12 @@
+{
+    "name": "hitagiserv",
+    "description": "Hitagi Chat Server",
+    "version": "0.2.0",
+    "main": "app.js",
+    "dependencies": {
+        "express":"4.4.4",
+        "mongoose":"3.8.12",
+        "ws":"0.4.31",
+        "underscore":"^1.6.0"
+    }
+}
