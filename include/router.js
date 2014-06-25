@@ -10,8 +10,9 @@ var auth = require('./auth.js');
 
 
 var ways = {
-    'pong': pinger,
-    'register': auth.register
+    pong: pinger,
+    register: auth.register,
+    password: auth.password
 }
 
 

@@ -19,6 +19,13 @@ db.once('open', function callback() {
     console.log('Database is ready:', config.mongo.base);
 });
 
+// global function
+global.def = function (val, d){
+    d = typeof d == 'undefined' ? '' : d;
+    return typeof val == 'undefined' ? d : val;
+}
+
+
 function nowTimestamp() {
     var d = new Date();
     return Math.round(d.valueOf() / 1000);
@@ -82,22 +89,6 @@ var RoomSchema = new Schema({
     }
 });
 
-
-/*
- "birthday": NumberInt(557863200),
- "country": "Russia",
- "email": "redspirit@live.ru",
- "facebook": "",
- "gender": "1",
- "homepage": "http:\/\/redspirit.ru",
- "icq": "434017172",
- "phone": "",
- "realname": "Алексей",
- "skype": "",
- "twitter": "",
- "vk": "http:\/\/vk.com\/aniwatch"
- */
-
 var UserSchema = new Schema({
     login: {
         type: String,
@@ -107,7 +98,8 @@ var UserSchema = new Schema({
         type: String
     },
     nick_date: {
-        type: Number
+        type: Number,
+        default: 0
     },
     pass: {
         type: String
@@ -116,19 +108,23 @@ var UserSchema = new Schema({
         type: String
     },
     last_login: {
-        type: Number
+        type: Number,
+        default: 0
     },
     mess_count: {
-        type: Number
+        type: Number,
+        default: 0
     },
     privilege: {
         type: Number
     },
     state: {
-        type: Number
+        type: Number,
+        default: 0
     },
     statustext: {
-        type: Number
+        type: Number,
+        default: ''
     },
     textcolor: {
         type: String,
@@ -139,14 +135,16 @@ var UserSchema = new Schema({
         default: nowTimestamp()
     },
     client: {
-        type: String
+        type: String,
+        default: ''
     },
     block: {
         type: Number,
         default: 0
     },
     block_reason: {
-        type: String
+        type: String,
+        default: ''
     },
     ava_index: {
         type: String,
@@ -155,6 +153,10 @@ var UserSchema = new Schema({
     profile_visible: {
         type: Number,
         default: 1
+    },
+    vk_id: {
+        type: Number,
+        default: 0
     },
     profile: {
         type: Schema.Types.Mixed

@@ -32,11 +32,11 @@ exports.start = function (host, port) {
         }
     }
 
+    io.nicks = {};
+
+
     // todo вернуть все комнаты указанного юзера
     // todo вернуть всех юзеров указанной комнаты
-
-
-
 
 
     // пинг-понг таймер
@@ -63,11 +63,24 @@ function onConnection(socket) {
 
     socket.id = data.randomHash(16);
     socket.client_ip = socket._socket.remoteAddress;
-    socket.profile = {};
+    socket.user = {};
     socket.isLogin = false;
     socket.pinged = false;
     socket.json_send = function (m) {
         if (m) socket.send(JSON.stringify(m));
+    };
+    socket.send_ok = function (type, data) {
+        data.type = type;
+        data.status = 'ok';
+        socket.json_send(data);
+    };
+    socket.send_err = function (type, reason) {
+        var data = {
+            type: type,
+            status: 'error',
+            reason: reason
+        }
+        socket.json_send(data);
     };
 
     socket.room_join = function (name) {
