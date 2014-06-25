@@ -7,7 +7,7 @@
  */
 
 var router = require('./router.js');
-var data = require('./include/datamodel.js');
+var data = require('./datamodel.js');
 var config = require('./../config.json');
 
 var WebSocketServer = require('ws').Server;
@@ -31,6 +31,11 @@ exports.start = function (host, port) {
             rooms[name][i].json_send(data);
         }
     }
+
+    // todo вернуть все комнаты указанного юзера
+    // todo вернуть всех юзеров указанной комнаты
+
+
 
 
 
@@ -61,7 +66,6 @@ function onConnection(socket) {
     socket.profile = {};
     socket.isLogin = false;
     socket.pinged = false;
-    socket.rooms = [];
     socket.json_send = function (m) {
         if (m) socket.send(JSON.stringify(m));
     };
@@ -84,12 +88,11 @@ function onConnection(socket) {
  */
 function onMessage(data) {
 
-    var jdata;
+    var jdata = false;
 
     try {
         jdata = JSON.parse(data);
     } catch (e) {
-        jdata = false;
         console.logf('Bad JSON data');
     }
 
@@ -102,5 +105,12 @@ function onMessage(data) {
  */
 function onClose() {
 
+    var id = this.id;
+
+    for (var i in rooms) {
+        if(rooms[i][id]) {
+            delete rooms[i][id];
+        }
+    }
 
 }

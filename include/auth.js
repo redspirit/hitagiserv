@@ -1,10 +1,14 @@
 /*
-	Auth.js - регистация и авторизация пользователей
+	Auth.js - OAuth 2.0 регистация и авторизация пользователей
 
 	Date: 17.02.2014
 	Author: Tayanchin Alexey
 	Website: http://redspirit.ru/
 */
+
+
+/*
+
 
 var tools = require('./tools.js');
 
@@ -27,7 +31,7 @@ function registerUser(param, s){
 		}
 	}
 	
-	/* Проверка введенных данных для регистрации */
+	/// Проверка введенных данных для регистрации
 	if(pass.length != 40) {
 		sendError('wrongpass', s);
 		return false;
@@ -43,14 +47,14 @@ function registerUser(param, s){
 		return false;				
 	}
 	
-	/* TODO: Проверка юзера на IP бан*/
+	/// TODO: Проверка юзера на IP бан
 	
 	dbusers.findOne({'login':login}, function(err, result){
 		if(!result){
 			dbusers.findOne({'nick':nick}, function(err, result){
 				if(!result){
 				
-					/* Записываем данные юзера в базу */
+					/// Записываем данные юзера в базу
 					var newuser = {
 						'login':login,
 						'nick':nick,
@@ -75,7 +79,9 @@ function registerUser(param, s){
 					};
 					
 					dbusers.insert(newuser, function(err, result){
-						/* уведомляем клиента */
+
+						// уведомляем клиента
+
 						s.json_send({'type':'register', 'status':'ok'});
 					});						
 				} else {
@@ -94,4 +100,8 @@ function sendError(reason, s){
 	s.json_send({'type':'register', 'status':'error', 'reason':reason});
 }
 
-exports.register = registerUser;
+*/
+
+
+//exports.register = registerUser;
+exports.register = function(){};
