@@ -51,116 +51,39 @@ function randomHash(c) {
 // SCHEMES
 
 var RoomSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    caption: {
-        type: String
-    },
-    topic: {
-        type: String
-    },
-    banned: {
-        type: Schema.Types.Mixed
-    },
-    moderators: {
-        type: Schema.Types.Mixed
-    },
-    users: {
-        type: Schema.Types.Mixed
-    },
-    silent: {
-        type: Schema.Types.Mixed
-    },
-    created: {
-        type: Number,
-        default: nowTimestamp()
-    },
-    hidden: {
-        type: Number,
-        default: 0
-    },
-    owner: {
-        type: String
-    },
-    totalmessages: {
-        type: Number
-    }
+    name: { type: String, required: true },
+    caption: {type: String, default: ''},
+    topic: {type: String, default: 'Еще одна комната в этом чате'},
+    banned: {type: Schema.Types.Mixed},
+    moderators: {type: Schema.Types.Mixed},
+    users: {type: Schema.Types.Mixed},
+    silent: {type: Schema.Types.Mixed},
+    created: {type: Number,default: nowTimestamp()},
+    hidden: {type: Number, default: 0},
+    owner: {type: String},
+    totalmessages: {type: Number, default: 0 }
 });
 
 var UserSchema = new Schema({
-    login: {
-        type: String,
-        required: true
-    },
-    nick: {
-        type: String
-    },
-    nick_date: {
-        type: Number,
-        default: 0
-    },
-    pass: {
-        type: String
-    },
-    ip: {
-        type: String
-    },
-    last_login: {
-        type: Number,
-        default: 0
-    },
-    mess_count: {
-        type: Number,
-        default: 0
-    },
-    privilege: {
-        type: Number
-    },
-    state: {
-        type: Number,
-        default: 0
-    },
-    statustext: {
-        type: Number,
-        default: ''
-    },
-    textcolor: {
-        type: String,
-        default: config.defaultColor
-    },
-    reg_date: {
-        type: Number,
-        default: nowTimestamp()
-    },
-    client: {
-        type: String,
-        default: ''
-    },
-    block: {
-        type: Number,
-        default: 0
-    },
-    block_reason: {
-        type: String,
-        default: ''
-    },
-    ava_index: {
-        type: String,
-        default: 0
-    },
-    profile_visible: {
-        type: Number,
-        default: 1
-    },
-    vk_id: {
-        type: Number,
-        default: 0
-    },
-    profile: {
-        type: Schema.Types.Mixed
-    }
+    login: {type: String,required: true},
+    nick: {type: String },
+    nick_date: {type: Number,default: 0},
+    pass: { type: String },
+    ip: { type: String },
+    last_login: {type: Number,default: 0},
+    mess_count: {type: Number, default: 0 },
+    privilege: { type: Number},
+    state: {type: Number,default: 0},
+    statustext: { type: Number, default: '' },
+    textcolor: { type: String,default: config.defaultColor},
+    reg_date: {type: Number,default: nowTimestamp() },
+    client: {type: String,default: ''},
+    block: { type: Number,default: 0 },
+    block_reason: { type: String, default: '' },
+    ava_index: {type: String, default: 0},
+    profile_visible: { type: Number,default: 1 },
+    vk_id: {type: Number, default: 0},
+    profile: {type: Schema.Types.Mixed}
 });
 
 
@@ -177,8 +100,6 @@ exports.Room = mongoose.model('Room', RoomSchema);
 exports.User = mongoose.model('User', UserSchema);
 
 /*
-
  exports.obLen = function(ob){var cc=0; for(var i in ob) cc++; return cc};
  exports.obj2arr = function(ob){var ar=[]; for(var i in ob) ar.push(i); return ar};
-
  */

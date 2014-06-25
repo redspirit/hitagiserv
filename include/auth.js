@@ -17,7 +17,7 @@ function Register(param, s){
     var login = def(param.pass);
 
     if(s.isLogin){
-        s.send_err('register', 'alreadyauth');
+        s.send_err('register', 'already_auth');
         return;
     }
 
@@ -25,24 +25,24 @@ function Register(param, s){
     var bs = config.busyNames.split('|');
     for(var i = 0; i < bs.length - 1; i++) {
         if(bs[i] == login || bs[i] == nick){
-            s.send_err('register', 'busynicklogin');
+            s.send_err('register', 'busy_nick_login');
             return;
         }
     }
 
     /// Проверка введенных данных для регистрации
     if(pass.length != 40) {
-        s.send_err('register','wrongpass');
+        s.send_err('register','wrong_pass');
         return;
     }
 
     if(!/^[\w-]{3,15}$/i.test(login)){
-        s.send_err('register','wronglogin');
+        s.send_err('register','wrong_login');
         return;
     }
 
     if(nick.length < 3 || nick.length > config.maxNickLength){
-        s.send_err('wrongnick', s);
+        s.send_err('wrong_nick', s);
         return false;
     }
 
@@ -51,11 +51,11 @@ function Register(param, s){
 
     data.User.findOne({'login': login}, function(err, result){
         if (result) {
-            s.send_err('register', 'busylogin');
+            s.send_err('register', 'busy_login');
         } else {
             data.User.findOne({'nick': nick}, function(err, result){
                 if (result) {
-                    s.send_err('register', 'busynick');
+                    s.send_err('register', 'busy_nick');
                 } else {
 
                     var profile = {
@@ -84,7 +84,7 @@ function Register(param, s){
 
                     user.save(function(err, doc){
                         if(err) {
-                            s.send_err('register', 'createerror');
+                            s.send_err('register', 'create_error');
                         } else {
                             s.send_ok('register', {});
                         }
@@ -105,11 +105,16 @@ function Password(param, s){
     var client = def(param.client);
 
 
+	if(pass.length != 40) {
+		s.send_err('password','wrong_pass_format');
+		return;
+	}
+
     data.User.findOne({'login':login, 'pass':pass}, function(err, doc){
         if(doc) {
 
             if(doc.block == 1) {
-                s.json_send({'type':'auth', 'status':'error', 'reason':'userblocked','message':res['block_reason']});
+                s.json_send({'type':'auth', 'status':'error', 'reason':'user_blocked','message': doc.block_reason});
                 return;
             }
 
@@ -119,38 +124,36 @@ function Password(param, s){
             doc.save();
 
 
+			// todo возможно эти данные не нужно запоминать
             s.isLogin = true;
             s.user.login = login;
             s.user.nick = doc.nick;
             s.user.privilege = doc.privilege;
             s.user.client = client;
-            s.user.avaindex = doc.ava_index;
+            s.user.ava_index = doc.ava_index;
             s.user.statustext = doc.statustext;
             s.user.state = doc.state;
-            s.user.profvisible = doc.profile_visible;
-            s.user.nickdate = doc.nick_date;
+            s.user.profile_visible = doc.profile_visible;
+            s.user.nick_date = doc.nick_date;
             s.user.lastmess = {};
             s.user.avaurl = 'http://' + config.server.host + ':' + config.server.port + '/avatar/' + login + '?' + doc.ava_index;
-            s.user.profile = {};
+            s.user.profile = doc.profile;
 
             nicks[login] = doc.nick;
 
-            if(!isset(res['textcolor'])) res['textcolor'] = '000000';
-            s.json_send({
-                'type':'auth',
-                'status':'ok',
+            s.send_ok('password', {
                 'login':login,
-                'privilege':res['privilege'],
-                'nickname':res['nick'],
-                'statustext':res['statustext'],
-                'state':res['state'],
-                'textcolor':res['textcolor'],
-                'url':s.profile.avaurl
+                'privilege': doc.privilege,
+                'nickname': doc.nick,
+                'statustext': doc.statustext,
+                'state': doc.state,
+                'textcolor': doc.textcolor,
+                'avaurl': s.user.avaurl
             });
 
 
         } else {
-            s.send_err('password', 'wrongauth');
+            s.send_err('password', 'wrong_auth');
         }
     });
 
