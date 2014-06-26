@@ -8,10 +8,17 @@
         "host": "localhost",
         "port": 8080
     },
+    "mail": {
+        "service": "yandex",
+        "user": "redspirit2",
+        "pass": "leosoft159",
+        "from": "Hitagi Chat <redspirit2@ya.ru>"
+    },
+
 
 	"serverName": "Hitagi chat server",
 
-	"pingTimeout": 60,
+	"pingTimeout": 600,
 	
 	"messagePrivateMaxLength": 2000,
 	"messageRoomMaxLength": 2000,

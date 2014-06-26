@@ -13,8 +13,8 @@ var config = require('./../config.json');
 
 function Register(param, s){
     var login = def(param.login);
-    var nick = def(param.nickname);
-    var login = def(param.pass);
+    var nick  = def(param.nick);
+    var pass  = def(param.pass);
 
     if(s.isLogin){
         s.send_err('register', 'already_auth');
@@ -31,7 +31,7 @@ function Register(param, s){
     }
 
     /// Проверка введенных данных для регистрации
-    if(pass.length != 40) {
+    if(pass.length != 32) {
         s.send_err('register','wrong_pass');
         return;
     }
@@ -42,9 +42,10 @@ function Register(param, s){
     }
 
     if(nick.length < 3 || nick.length > config.maxNickLength){
-        s.send_err('wrong_nick', s);
-        return false;
+        s.send_err('register', 'wrong_nick');
+        return;
     }
+
 
     // TODO: Проверка юзера на IP бан
 
@@ -105,7 +106,7 @@ function Password(param, s){
     var client = def(param.client);
 
 
-	if(pass.length != 40) {
+	if(pass.length != 32) {
 		s.send_err('password','wrong_pass_format');
 		return;
 	}

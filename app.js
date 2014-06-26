@@ -11,7 +11,9 @@ require('./include/logger.js');
 
 var config = require('./config.json');
 var server = require('./include/server.js');
+var mail = require('./include/mail.js');
 
 
-server.start(config.server.host, config.server.port);
+//server.start(config.server.host, config.server.port);
 
+mail.send('redspirit@live.ru', 'Sample subject', '<p>Hello world <br> привет всем!</p>');
